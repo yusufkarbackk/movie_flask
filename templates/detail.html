@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <!-- Portfolio Item 1-->
+    <div class="col-md-6 col-lg-4 mb-5">
+        <div class="mx-auto">
+            <img class="img-fluid img-thumbnail" width="350px" height="380px"
+                src="http://image.tmdb.org/t/p/w500{{movie.poster_path}}" alt="..." />
+            <h5>{{movie.title}}</h5>
+            <p>{{movie.overview}}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

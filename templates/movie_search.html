@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<section class="page-section portfolio" id="portfolio">
+    <!-- Portfolio Section Heading-->
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+    <!-- Portfolio Grid Items-->
+    <div class="row justify-content-center">
+        <!-- Portfolio Item 1-->
+        {% for movie in movies %}
+        <div class="col-md-6 col-lg-4 mb-5">
+            <a href="{{url_for('movie_detail', movieId=movie.id)}}">
+                <div class="mx-auto">
+                    <img class="img-fluid img-thumbnail" width="350px" height="380px"
+                        src="http://image.tmdb.org/t/p/w500{{movie.poster_path}}" alt="..." />
+                    <h5>{{movie.title}}</h5>
+                    <p>{{movie.overview}}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+</section>
+{% endblock %}
