@@ -1,25 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+{%extends "base_dashboard.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h3>update baru</h3>
-    <form action="" method="post">
-        <div class="form-outline">
-            <input type="text" id="form3Example1m" name="name" class="form-control form-control-lg" />
-            <label class="form-label" for="form3Example1m">First name</label>
-        </div>
-
-        <a href="{{url_for('register')}}">
-            <button type="submit" class="btn btn-success btn-lg ms-2">Register</button>
-        </a>
-    </form>
-</body>
-
-</html>
+{%block content%}
+<form class="row g-3">
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Nama</label>
+        <input type="email" class="form-control" id="inputEmail4" name="nama">
+    </div>
+    <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Email</label>
+        <input type="password" class="form-control" id="inputPassword4" name="email">
+    </div>
+    <div class="col-12">
+        <label for="inputAddress" class="form-label">Judul</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="col-12">
+        <label for="inputAddress2" class="form-label">Kursi</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="col-md-6">
+        <label for="inputCity" class="form-label">Total</label>
+        <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="col-md-4">
+        <label for="inputState" class="form-label">Status</label>
+        <select id="inputState" class="form-select">
+            <option selected>Pending</option>
+            <option>Success</option>
+            <option>Failed</option>
+        </select>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
+{%endblock%}

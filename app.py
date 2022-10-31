@@ -69,16 +69,45 @@ def users():
     return render_template('users.html', data=output_json)
 
 
+@app.route('/transaksi')
+def transaksi():
+    db = getMysqlConnection()
+    try:
+        sqlstr = "SELECT * from transaksi"
+        cur = db.cursor()
+        cur.execute(sqlstr)
+        output_json = cur.fetchall()
+    except Exception as e:
+        print("Error in SQL:\n", e)
+    finally:
+        db.close()
+    return render_template('transaksi.html', data=output_json)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
 
 
-@app.route('/update', methods=['GET', 'POST'])
-def update():
-    if request.method == 'GET':
-        return render_template('update.html')
+@app.route('/update/<int:user_id>', methods=['GET', 'POST'])
+def update(user_id):
+    if request.method == 'POST':
+        db = getMysqlConnection()
+        try:
+            cur = db.cursor()
+            sqlstr = f"update transaksi set status = "
+            cur.execute(sqlstr)
+            db.commit()
+            cur.close()
+            print('sukses')
+        except Exception as e:
+            print("Error in SQL:\n", e)
+        finally:
+            db.close()
+        return redirect(url_for('dashboard'))
+
+    return redirect(url_for('transaksi'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -120,6 +149,7 @@ def deleteUser(user_id):
     finally:
         db.close()
     return redirect(url_for('dashboard'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
