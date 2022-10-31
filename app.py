@@ -1,22 +1,30 @@
+from crypt import methods
 from flask import (Flask, render_template, request,
                    redirect, url_for, session, flash, abort)
 import json
 import urllib.request
+import mysql.connector
 
 
 app = Flask(__name__)
+
+
+def getMysqlConnection():
+    return mysql.connector.connect(user='root', host='localhost', port=8889, password='root', database='layar_tancep')
+
 
 key = '6765b9ea37def7ce46ee426d105bc4d8'
 
 
 @app.route('/')
 def index():
-    url = f'https://api.themoviedb.org/3/movie/popular?api_key={key}&language=en-US&page=1'
+    url = f"https://api.themoviedb.org/3/movie/popular?api_key={key}&language=en-US&page=1"
+
     response = urllib.request.urlopen(url)
     data = response.read()
     dict = json.loads(data)
 
-    return render_template('home.html', movies=dict['results'])
+    return render_template('index.html', movies=dict['results'])
 
 
 @app.route('/search_movie/')
@@ -40,6 +48,78 @@ def movie_detail(movieId):
 
     return render_template('detail.html', movie=movie)
 
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('finance.html')
+
+
+@app.route('/users')
+def users():
+    db = getMysqlConnection()
+    try:
+        sqlstr = "SELECT * from users"
+        cur = db.cursor()
+        cur.execute(sqlstr)
+        output_json = cur.fetchall()
+    except Exception as e:
+        print("Error in SQL:\n", e)
+    finally:
+        db.close()
+    return render_template('users.html', data=output_json)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+
+
+@app.route('/update', methods=['GET', 'POST'])
+def update():
+    if request.method == 'GET':
+        return render_template('update.html')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        nama = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        db = getMysqlConnection()
+        try:
+            cur = db.cursor()
+            sqlstr = f"INSERT INTO users (nama, email, password) VALUES('{nama}', '{email}', {password})"
+            cur.execute(sqlstr)
+            db.commit()
+            cur.close()
+            print('sukses')
+            output_json = cur.fetchall()
+        except Exception as e:
+            print("Error in SQL:\n", e)
+        finally:
+            db.close()
+        return redirect(url_for('index'))
+    else:
+        return render_template('registration.html')
+
+
+@app.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
+def deleteUser(user_id):
+    db = getMysqlConnection()
+    try:
+        cur = db.cursor()
+        sqlstr = f"delete from users where id={user_id}"
+        cur.execute(sqlstr)
+        db.commit()
+        cur.close()
+        print('sukses')
+    except Exception as e:
+        print("Error in SQL:\n", e)
+    finally:
+        db.close()
+    return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
     app.run(debug=True)
