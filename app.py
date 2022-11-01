@@ -1,13 +1,13 @@
 from crypt import methods
 from flask import (Flask, render_template, request,
                    redirect, url_for, session, flash, abort)
+from auth import auth
 import json
 import urllib.request
 import mysql.connector
 
-
 app = Flask(__name__)
-
+app.register_blueprint(auth)
 
 def getMysqlConnection():
     return mysql.connector.connect(user='root', host='localhost', port=8889, password='root', database='layar_tancep')
@@ -84,10 +84,7 @@ def transaksi():
     return render_template('transaksi.html', data=output_json)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-        return render_template('login.html')
+
 
 
 @app.route('/update/<int:user_id>/', methods=['GET', 'POST'])
@@ -122,30 +119,6 @@ def update_form(user_id):
     finally:
         db.close()
     return render_template('update.html', data=output_json)
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        nama = request.form['name']
-        email = request.form['email']
-        password = request.form['password']
-        db = getMysqlConnection()
-        try:
-            cur = db.cursor()
-            sqlstr = f"INSERT INTO users (nama, email, password) VALUES('{nama}', '{email}', {password})"
-            cur.execute(sqlstr)
-            db.commit()
-            cur.close()
-            print('sukses')
-            output_json = cur.fetchall()
-        except Exception as e:
-            print("Error in SQL:\n", e)
-        finally:
-            db.close()
-        return redirect(url_for('index'))
-    else:
-        return render_template('registration.html')
 
 
 @app.route('/delete_user/<int:user_id>', methods=['GET', 'POST'])
