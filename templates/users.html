@@ -8,7 +8,7 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h4 class="m-0 font-weight-bold text-dark"> User</h6>
+                <h4 class="m-0 font-weight-bold text-dark">Pengguna</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -31,7 +31,7 @@
                             <td>{{item[2]}}</td>
                             <td>{{item[3]}}</td>
                             <td>{{item[4]}}</td>
-                            <td><a href="{{url_for('update')}}">
+                            <td><a href="{{url_for('update_form', user_id=item[0])}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>

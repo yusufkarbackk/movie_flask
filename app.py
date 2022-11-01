@@ -90,13 +90,14 @@ def login():
         return render_template('login.html')
 
 
-@app.route('/update/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/update/<int:user_id>/', methods=['GET', 'POST'])
 def update(user_id):
+    db = getMysqlConnection()
+    status = request.form['status']
     if request.method == 'POST':
-        db = getMysqlConnection()
         try:
             cur = db.cursor()
-            sqlstr = f"update transaksi set status = "
+            sqlstr = f"update transaksi set status = '{status}' where id={user_id}"
             cur.execute(sqlstr)
             db.commit()
             cur.close()
@@ -105,9 +106,22 @@ def update(user_id):
             print("Error in SQL:\n", e)
         finally:
             db.close()
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('transaksi'))
 
-    return redirect(url_for('transaksi'))
+
+@app.route('/update_form/<int:user_id>/')
+def update_form(user_id):
+    db = getMysqlConnection()
+    try:
+        sqlstr = f"SELECT * from transaksi where id={user_id}"
+        cur = db.cursor()
+        cur.execute(sqlstr)
+        output_json = cur.fetchall()
+    except Exception as e:
+        print("Error in SQL:\n", e)
+    finally:
+        db.close()
+    return render_template('update.html', data=output_json)
 
 
 @app.route('/register', methods=['GET', 'POST'])
