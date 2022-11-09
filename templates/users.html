@@ -16,10 +16,13 @@
                     <thead>
                         <tr>
                             <th scope="col">Id</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Kursi</th>
-                            <th scope="col">created_at</th>
+                            <th scope="col">Kode anggota</th>
+                            <th scope="col">Nama anggota</th>
+                            <th scope="col">jk anggota</th>
+                            <th scope="col">jurusan anggota</th>
+                            <th scope="col">no telepon anggota</th>
+                            <th scope="col">alamat anggota</th>
+                            <th scope="col">created at</th>
                             <th scope="colgroup">Aksi</th>
                         </tr>
                     </thead>
@@ -31,7 +34,10 @@
                             <td>{{item[2]}}</td>
                             <td>{{item[3]}}</td>
                             <td>{{item[4]}}</td>
-                            <td><a href="{{url_for('update_form', user_id=item[0])}}">
+                            <td>{{item[5]}}</td>
+                            <td>{{item[6]}}</td>
+                            <td>{{item[7]}}</td>
+                            <td><a href="{{url_for('user_update_form', user_id=item[0])}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>

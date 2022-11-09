@@ -1,0 +1,43 @@
+{%extends "base_dashboard.html"%}
+
+{%block content%}
+<form class="row g-3" method="post" action="{{url_for('update_user', user_id=data[0][0])}}">
+    <div class="d-flex justify-content-end pt-3">
+        <button type="submit" class="btn btn-success btn-lg ms-2">Update</button>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="form-outline">
+                <input type="text" placeholder="{{data[0][1]}}" id="form3Example1m" name="kode_anggota"
+                    class="form-control form-control-lg" />
+                <label class="form-label" for="form3Example1m">kode anggota</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" placeholder="{{data[0][2]}}" name="nama"
+            class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">Nama</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" placeholder="{{data[0][3]}}" name="jk_anggota"
+            class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">jk anggota</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" placeholder="{{data[0][4]}}" name="jurusan_anggota"
+            class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">jurusan anggota</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" placeholder="{{data[0][5]}}" name="telpon"
+            class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">no telpon anggota</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" placeholder="{{data[0][6]}}" name="alamat"
+            class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">alamat anggota</label>
+    </div>
+</form>
+{%endblock%}

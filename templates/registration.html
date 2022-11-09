@@ -25,25 +25,51 @@
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5 text-black">
                                     <h3 class="mb-5 text-uppercase">Layar Tancep registration</h3>
+                                    {%with messages = get_flashed_messages(with_categories=True)%}
+                                    {%if messages%}
+                                    <ul>
+                                        {%for catogory, message in messages%}
+                                        <li class="{{category}}">
+                                            {{message}}
+                                        </li>
+                                        {%endfor%}
+                                    </ul>
+                                    {%endif%}
+                                    {%endwith%}
                                     <form action="{{url_for('auth.register')}}" method="post">
                                         <div class="row">
                                             <div class="col-md-6 mb-4">
                                                 <div class="form-outline">
-                                                    <input type="text" id="form3Example1m" name="name"
+                                                    <input type="text" id="form3Example1m" name="kode_anggota"
                                                         class="form-control form-control-lg" />
-                                                    <label class="form-label" for="form3Example1m">First name</label>
+                                                    <label class="form-label" for="form3Example1m">kode anggota</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input type="text" id="form3Example8" name="email"
+                                            <input type="text" id="form3Example8" name="nama"
                                                 class="form-control form-control-lg" />
-                                            <label class="form-label" for="form3Example8">Email</label>
+                                            <label class="form-label" for="form3Example8">Nama</label>
                                         </div>
                                         <div class="form-outline mb-4">
-                                            <input type="password" id="form3Example8" name="password"
+                                            <input type="text" id="form3Example8" name="jk_anggota"
                                                 class="form-control form-control-lg" />
-                                            <label class="form-label" for="form3Example8">Password</label>
+                                            <label class="form-label" for="form3Example8">jk anggota</label>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="form3Example8" name="jurusan_anggota"
+                                                class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example8">jurusan anggota</label>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="form3Example8" name="telpon"
+                                                class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example8">no telpon anggota</label>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="form3Example8" name="alamat"
+                                                class="form-control form-control-lg" />
+                                            <label class="form-label" for="form3Example8">alamat anggota</label>
                                         </div>
                                         <div class="d-flex justify-content-end pt-3">
                                             <button type="submit" class="btn btn-success btn-lg ms-2">Register</button>
@@ -58,4 +84,5 @@
         </div>
     </section>
 </body>
+
 </html>

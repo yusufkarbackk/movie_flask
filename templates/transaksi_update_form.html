@@ -1,7 +1,7 @@
 {%extends "base_dashboard.html"%}
 
 {%block content%}
-<form class="row g-3" method="post" action="{{url_for('update', user_id=data[0][0])}}">
+<form class="row g-3" method="post" action="{{url_for('transaksi.update', user_id=data[0][0])}}">
     <div class="col-md-6">
         <label for="inputEmail4" class="form-label">Nama</label>
         <input disabled placeholder="{{data[0][1]}}" type="email" class="form-control" id="inputEmail4" name="nama">
@@ -25,7 +25,9 @@
     <div class="col-md-4">
         <label for="inputState" class="form-label">Status</label>
         <select id="inputState" class="form-select" name="status">
-            <option selected value="pending">Pending</option>
+            <option selected value="pending">{{data[0][6]}}</option>
+            <hr>
+            <option value="pending">Pending</option>
             <option value="success">Success</option>
             <option value="failed">Failed</option>
         </select>
