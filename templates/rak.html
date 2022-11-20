@@ -1,0 +1,52 @@
+{%extends "base_dashboard.html"%}
+
+{%block content%}
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h4 class="m-0 font-weight-bold text-dark">Petugas</h6>
+                    <a href="{{url_for('rak.tambah_rak')}}">
+                        <button class="btn-info">
+                            Tambah Rak
+                        </button>
+                    </a>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id Rak</th>
+                            <th scope="col">Nama Rak</th>
+                            <th scope="col">Lokasi Rak</th>
+                            <th scope="col">Id Buku</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for item in data%}
+                        <tr>
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                            <td>{{item[2]}}</td>
+                            <td>{{item[3]}}</td>
+                            <td><a href="{{url_for('rak.update_rak', id_rak=item[0])}}">
+                                    <button class="btn-info">update</button>
+                                </a></td>
+                            <td>
+                                <a href="{{url_for('rak.delete_rak', id_rak=item[0])}}">
+                                    <button class="btn-danger">delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

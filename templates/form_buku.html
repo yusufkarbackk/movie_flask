@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <form method="post" action="{{url_for('buku.tambah_buku')}}">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Kode Buku</label>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" id="inputEmail3" name="kd_buku">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Judul Buku</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" name="judul_buku">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Penulis Buku</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" name="penulis_buku">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">penerbit Buku</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" name="penerbit_buku">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">tahun penerbit</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" name="tahun_penerbit">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Stok</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="inputEmail3" name="stok">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Create</button>
+        </form>
+    </div>
+</body>
+
+</html>

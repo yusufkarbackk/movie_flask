@@ -8,20 +8,24 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h4 class="m-0 font-weight-bold text-dark"> User</h6>
+                <h4 class="m-0 font-weight-bold text-dark">Petugas</h6>
+                    <a href="{{url_for('pengembalian.tambah_pengembalian')}}">
+                        <button class="btn-info">
+                            Tambah Pengembalian
+                        </button>
+                    </a>
             </div>
             <!-- Card Body -->
             <div class="card-body">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Judul</th>
-                            <th scope="col">Kursi</th>
-                            <th scope="colgroup">Total</th>
-                            <th scope="colgroup">Status</th>
+                            <th scope="col">Id pengembalian</th>
+                            <th scope="col">tanggal kembali</th>
+                            <th scope="col">denda</th>
+                            <th scope="col">id Buku</th>
+                            <th scope="col">id anggota</th>
+                            <th scope="col">id petugas</th>
                             <th scope="colgroup">Aksi</th>
                         </tr>
                     </thead>
@@ -34,12 +38,11 @@
                             <td>{{item[3]}}</td>
                             <td>{{item[4]}}</td>
                             <td>{{item[5]}}</td>
-                            <td>{{item[6]}}</td>
-                            <td><a href="{{url_for('transaksi.transaksi_update_form', user_id=item[0])}}">
+                            <td><a href="{{url_for('pengembalian.update_pengembalian', id_pengembalian=item[0])}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('deleteUser', user_id=item[0])}}">
+                                <a href="{{url_for('pengembalian.delete_pengembalian', id_pengembalian=item[0])}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>

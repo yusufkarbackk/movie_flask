@@ -1,0 +1,59 @@
+{%extends "base_dashboard.html"%}
+
+{%block content%}
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h4 class="m-0 font-weight-bold text-dark">Petugas</h6>
+                    <a href="{{url_for('buku.tambah_buku')}}">
+                        <button class="btn-info">
+                            Tambah Buku
+                        </button>
+                    </a>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id buku</th>
+                            <th scope="col">kode buku</th>
+                            <th scope="col">Judul Buku</th>
+                            <th scope="col">Penulis Buku</th>
+                            <th scope="col">Penerbit Buku</th>
+                            <th scope="col">Tahun Penerbit</th>
+                            <th scope="colgroup">Stok</th>
+                            <th scope="colgroup">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for item in data%}
+                        <tr>
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                            <td>{{item[2]}}</td>
+                            <td>{{item[3]}}</td>
+                            <td>{{item[4]}}</td>
+                            <td>{{item[5]}}</td>
+                            <td>{{item[6]}}</td>
+                            <td><a href="{{url_for('buku.update_buku', id_buku=item[0])}}">
+                                    <button class="btn-info">update</button>
+                                </a></td>
+                            <td>
+                                <a href="{{url_for('buku.delete_buku', id_buku=item[0])}}">
+                                    <button class="btn-danger">delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
