@@ -14,7 +14,7 @@
 
 <body>
     <div class="container mt-5">
-        <form method="post" action="{{url_for('buku.update_buku', id_buku=data[0][0])}}">
+        <form method="post" action="{{url_for('buku.update_buku', kode_buku=data[0][1])}}">
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Kode Buku</label>
                 <div class="col-sm-10">
@@ -36,13 +36,15 @@
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">penerbit Buku</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" value="{{data[0][4]}}" name="penerbit_buku">
+                    <input type="text" class="form-control" id="inputEmail3" value="{{data[0][4]}}"
+                        name="penerbit_buku">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">tahun penerbit</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3"value="{{data[0][5]}}"  name="tahun_penerbit">
+                    <input type="text" class="form-control" id="inputEmail3" value="{{data[0][5]}}"
+                        name="tahun_penerbit">
                 </div>
             </div>
             <div class="row mb-3">
@@ -51,6 +53,25 @@
                     <input type="number" class="form-control" id="inputEmail3" value="{{data[0][6]}}" name="stok">
                 </div>
             </div>
+
+            {%for genre in genres%}
+            {%if genre[0] in genre_relations%}
+            <div class="form-check">
+                <input class="form-check-input" checked name="genre" type="checkbox" value="{{genre[0]}}"
+                    id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    {{genre[1]}}
+                </label>
+            </div>
+            {%else%}
+            <div class="form-check">
+                <input class="form-check-input" name="genre" type="checkbox" value="{{genre[0]}}" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    {{genre[1]}}
+                </label>
+            </div>
+            {%endif%}
+            {%endfor%}
 
             <button type="submit" class="btn btn-success">Update</button>
         </form>

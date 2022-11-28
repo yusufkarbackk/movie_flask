@@ -45,6 +45,14 @@
                     <input type="text" class="form-control" id="inputEmail3" name="tahun_penerbit">
                 </div>
             </div>
+            {%for data in genre%}
+            <div class="form-check">
+                <input class="form-check-input" name="genre" type="checkbox" value="{{data[0]}}" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    {{data[1]}}
+                </label>
+            </div>
+            {%endfor%}
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Stok</label>
                 <div class="col-sm-3">

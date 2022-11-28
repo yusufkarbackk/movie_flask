@@ -8,7 +8,7 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h4 class="m-0 font-weight-bold text-dark">Petugas</h6>
+                <h4 class="m-0 font-weight-bold text-dark">Buku</h6>
                     <a href="{{url_for('buku.tambah_buku')}}">
                         <button class="btn-info">
                             Tambah Buku
@@ -20,9 +20,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Id buku</th>
-                            <th scope="col">kode buku</th>
-                            <th scope="col">Judul Buku</th>
+                            <th scope="col">Kode buku</th>
+                            <th scope="col">judul buku</th>
+                            <th scope="col">Genre</th>
                             <th scope="col">Penulis Buku</th>
                             <th scope="col">Penerbit Buku</th>
                             <th scope="col">Tahun Penerbit</th>
@@ -40,11 +40,12 @@
                             <td>{{item[4]}}</td>
                             <td>{{item[5]}}</td>
                             <td>{{item[6]}}</td>
-                            <td><a href="{{url_for('buku.update_buku', id_buku=item[0])}}">
+                            <td>{{item[7]}}</td>
+                            <td><a href="{{url_for('buku.update_buku', kode_buku=item[0])}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('buku.delete_buku', id_buku=item[0])}}">
+                                <a href="{{url_for('buku.delete_buku', kode_buku=item[0])}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>

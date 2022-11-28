@@ -46,40 +46,34 @@ def tambah_petugas():
     return render_template('from_create_petugas.html')
 
 
-@petugas.route('/update_user/<int:user_id>/', methods=['GET', 'POST'])
-def update_user(user_id):
+@petugas.route('/update_petugas/<int:id_petugas>/', methods=['GET', 'POST'])
+def update_petugas(id_petugas):
     db = getMysqlConnection()
     try:
-        sqlstr = f"SELECT * from anggota where id_anggota={user_id}"
+        sqlstr = f"SELECT * from petugas where id_petugas={id_petugas}"
         cur = db.cursor()
         cur.execute(sqlstr)
         old_data = cur.fetchall()
     except Exception as e:
         print("Error in SQL:\n", e)
     if request.method == 'POST':
-        kode_anggota = request.form['kode_anggota']
         nama = request.form['nama']
-        jk_anggota = request.form['jk_anggota']
-        jurusan_anggota = request.form['jurusan_anggota']
-        telpon = request.form['telpon']
+        jabatan = request.form['jabatan']
+        telfon = request.form['telfon']
         alamat = request.form['alamat']
 
-        if len(kode_anggota) == 0:
-            kode_anggota = old_data[0][1]
         if len(nama) == 0:
-            nama = old_data[0][2]
-        if len(jk_anggota) == 0:
-            jk_anggota = old_data[0][3]
-        if len(jurusan_anggota) == 0:
-            jurusan_anggota = old_data[0][4]
-        if len(telpon) == 0:
-            telpon = old_data[0][5]
+            nama = old_data[0][1]
+        if len(jabatan) == 0:
+            jabatan = old_data[0][2]
+        if len(telfon) == 0:
+            telfon = old_data[0][3]
         if len(alamat) == 0:
-            alamat = old_data[0][6]
+            alamat = old_data[0][4]
 
         try:
             cur = db.cursor()
-            sqlstr = f"update anggota set kode_anggota = '{kode_anggota}', nama_anggota='{nama}', jk_anggota='{jk_anggota}', jurusan_anggota='{jurusan_anggota}', no_telepon_anggota='{telpon}', alamat_anggota='{alamat}' where id_anggota={user_id}"
+            sqlstr = f"update petugas set nama_petugas = '{nama}', jabatan_petugas='{jabatan}', no_telp_petugas='{telfon}' where id_petugas={id_petugas}"
             cur.execute(sqlstr)
             db.commit()
             print('sukses')
@@ -88,22 +82,8 @@ def update_user(user_id):
             print("Error in SQL:\n", e)
         finally:
             db.close()
-        return redirect(url_for('users'))
-
-
-@petugas.route('/user_form/<int:user_id>')
-def user_update_form(user_id):
-    db = getMysqlConnection()
-    try:
-        sqlstr = f"SELECT * from anggota where id_anggota={user_id}"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        output_json = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-    finally:
-        db.close()
-    return render_template('user_update_form.html', data=output_json)
+        return redirect(url_for('petugas.show_petugas'))
+    return render_template('form_update_petugas.html', data=old_data)
 
 
 @petugas.route('/delete_petugas/<int:id_petugas>', methods=['GET', 'POST'])

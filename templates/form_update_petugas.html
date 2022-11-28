@@ -1,0 +1,25 @@
+{%extends "base_dashboard.html"%}
+
+{%block content%}
+<form class="row g-3" method="post" action="{{url_for('petugas.update_petugas', id_petugas=data[0][0])}}">
+    <div class="d-flex justify-content-end pt-3">
+        <button type="submit" class="btn btn-success btn-lg ms-2">Tambah Petugas</button>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" name="nama" value="{{data[0][1]}}" class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">Nama</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" name="jabatan" value="{{data[0][2]}}" class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">Jabatan</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" name="telfon" value="{{data[0][3]}}" class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">Nomor Telfon</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="form3Example8" name="alamat" value="{{data[0][4]}}" class="form-control form-control-lg" />
+        <label class="form-label" for="form3Example8">Alamat</label>
+    </div>
+</form>
+{%endblock%}

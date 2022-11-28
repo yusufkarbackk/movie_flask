@@ -5,18 +5,21 @@ from auth import auth
 from petugas import petugas
 from buku import buku
 from rak import rak
+from genre import genre
 from peminjaman import peminjaman
 from pengembalian import pengembalian
 import json
 import urllib.request
 
 app = Flask(__name__)
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 app.register_blueprint(auth)
 app.register_blueprint(rak)
 app.register_blueprint(petugas)
 app.register_blueprint(buku)
 app.register_blueprint(peminjaman)
 app.register_blueprint(pengembalian)
+app.register_blueprint(genre)
 
 app.secret_key = 'totalsecret123'
 
