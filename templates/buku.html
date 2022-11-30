@@ -33,19 +33,18 @@
                     <tbody>
                         {%for item in data%}
                         <tr>
-                            <td>{{item[0]}}</td>
-                            <td>{{item[1]}}</td>
-                            <td>{{item[2]}}</td>
-                            <td>{{item[3]}}</td>
-                            <td>{{item[4]}}</td>
-                            <td>{{item[5]}}</td>
-                            <td>{{item[6]}}</td>
-                            <td>{{item[7]}}</td>
-                            <td><a href="{{url_for('buku.update_buku', kode_buku=item[0])}}">
+                            <td>{{item.kd_buku}}</td>
+                            <td>{{item.judul}}</td>
+                            <td>{{item.genre}}</td>
+                            <td>{{item.penulis}}</td>
+                            <td>{{item.penerbit}}</td>
+                            <td>{{item.tahun_terbit}}</td>
+                            <td>{{item.stok}}</td>
+                            <td><a href="{{url_for('buku.update_buku', kode_buku=item.kd_buku)}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('buku.delete_buku', kode_buku=item[0])}}">
+                                <a href="{{url_for('buku.delete_buku', kode_buku=item.kd_buku)}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>

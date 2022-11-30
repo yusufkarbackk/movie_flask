@@ -1,14 +1,45 @@
-from flask import (Flask, render_template, request,
+from flask import (render_template, request,
                    redirect, url_for, Blueprint)
-
 from database import getMysqlConnection
 
 buku = Blueprint('buku', __name__)
 
 
+# @buku.route('http://127.0.0.1:8000/api.perpustakaandb/api/get_buku')
+# def api_get_buku():
+#     db = getMysqlConnection()
+#     try:
+#         sqlstr = "SELECT buku.kode_buku, buku.judul_buku, genre.genre, buku.penulis_buku, buku.penerbit_buku, buku.tahun_penerbit, buku.stok FROM buku INNER JOIN relasi_buku_genre ON relasi_buku_genre.kode_buku=buku.kode_buku INNER JOIN genre on genre.id_genre=relasi_buku_genre.id_genre"
+#         cur = db.cursor()
+#         cur.execute(sqlstr)
+#         output_json = cur.fetchall()
+#         print(output_json)
+#     except Exception as e:
+#         print("Error in SQL:\n", e)
+#     finally:
+#         db.close()
+#     print(output_json)
+#     result = {'results': []}
+#     for i in output_json:
+#         result['results'].append({
+#             'kd_buku': i[0],
+#             'judul': i[1],
+#             'genre': i[2],
+#             'penulis': i[3],
+#             'penerbit': i[4],
+#             'tahun_terbit': i[5],
+#             'stok': i[6]
+
+#         })
+#     print(result)
+#     return redirect(url_for('buku.html', data=output_json))
+
+
 @buku.route('/buku')
 def show_buku():
     db = getMysqlConnection()
+    result = {}
+    result['results'] = []
     try:
         sqlstr = "SELECT buku.kode_buku, buku.judul_buku, genre.genre, buku.penulis_buku, buku.penerbit_buku, buku.tahun_penerbit, buku.stok FROM buku INNER JOIN relasi_buku_genre ON relasi_buku_genre.kode_buku=buku.kode_buku INNER JOIN genre on genre.id_genre=relasi_buku_genre.id_genre"
         cur = db.cursor()
@@ -19,7 +50,19 @@ def show_buku():
         print("Error in SQL:\n", e)
     finally:
         db.close()
-    return render_template('buku.html', data=output_json)
+    for i in output_json:
+        result['results'].append({
+            'kd_buku': i[0],
+            'judul': i[1],
+            'genre': i[2],
+            'penulis': i[3],
+            'penerbit': i[4],
+            'tahun_terbit': i[5],
+            'stok': i[6]
+
+        })
+    print(result)
+    return render_template('buku.html', data=result['results'])
 
 
 @buku.route('/tambah_buku/', methods=['GET', 'POST'])

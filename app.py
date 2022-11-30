@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, request,
-                   redirect, url_for, session, flash, abort)
+                   redirect, url_for, jsonify)
 from database import getMysqlConnection
 from auth import auth
 from petugas import petugas
@@ -12,6 +12,7 @@ import json
 import urllib.request
 
 app = Flask(__name__)
+
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 app.register_blueprint(auth)
 app.register_blueprint(rak)
@@ -24,8 +25,15 @@ app.register_blueprint(genre)
 app.secret_key = 'totalsecret123'
 
 
-
 key = '6765b9ea37def7ce46ee426d105bc4d8'
+
+
+@app.route('/person/')
+def hello():
+    return jsonify({
+        'name': 'yusuf',
+        'address': 'Tangsel'
+    })
 
 
 @app.route('/', methods=['GET', 'POST'])
