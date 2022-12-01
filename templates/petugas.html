@@ -32,17 +32,16 @@
                     <tbody>
                         {%for item in data%}
                         <tr>
-                            <td>{{item[0]}}</td>
-                            <td>{{item[1]}}</td>
-                            <td>{{item[2]}}</td>
-                            <td>{{item[3]}}</td>
-                            <td>{{item[4]}}</td>
-                            <td>{{item[5]}}</td>
-                            <td><a href="{{url_for('petugas.update_petugas', id_petugas=item[0])}}">
+                            <td>{{item.id_petugas}}</td>
+                            <td>{{item.nama}}</td>
+                            <td>{{item.jabatan}}</td>
+                            <td>{{item.telpon}}</td>
+                            <td>{{item.alamat}}</td>
+                            <td><a href="{{url_for('petugas.update_petugas', id_petugas=item.id_petugas)}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('petugas.deletePetugas', id_petugas=item[0])}}">
+                                <a href="{{url_for('petugas.deletePetugas', id_petugas=item.id_petugas)}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>

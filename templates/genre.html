@@ -28,13 +28,13 @@
                     <tbody>
                         {%for item in data%}
                         <tr>
-                            <td>{{item[0]}}</td>
-                            <td>{{item[1]}}</td>
-                            <td><a href="{{url_for('genre.update_genre', id_genre=item[0])}}">
+                            <td>{{item.id_genre}}</td>
+                            <td>{{item.genre}}</td>
+                            <td><a href="{{url_for('genre.update_genre', id_genre=item.id_genre)}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('genre.delete_genre', id_genre=item[0])}}">
+                                <a href="{{url_for('genre.delete_genre', id_genre=item.id_genre)}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>

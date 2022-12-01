@@ -2,23 +2,19 @@ from flask import (Flask, render_template, request,
                    redirect, url_for, Blueprint)
 
 from database import getMysqlConnection
-
+import urllib.request
+import json
 petugas = Blueprint('petugas', __name__)
 
 
 @petugas.route('/petugas')
 def show_petugas():
-    db = getMysqlConnection()
-    try:
-        sqlstr = "SELECT * from petugas"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        output_json = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-    finally:
-        db.close()
-    return render_template('petugas.html', data=output_json)
+    url = f"http://127.0.0.1:8000/perpustakaan/api/show_petugas/"
+
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+    return render_template('petugas.html', data=dict['results'])
 
 
 @petugas.route('/tambah_petugas/', methods=['GET', 'POST'])
@@ -37,7 +33,7 @@ def tambah_petugas():
             db.commit()
             cur.close()
             print('sukses')
-            #output_json = cur.fetchall()
+            # output_json = cur.fetchall()
         except Exception as e:
             print("Error in SQL:\n", e)
         finally:
