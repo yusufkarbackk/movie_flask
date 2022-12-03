@@ -32,17 +32,17 @@
                     <tbody>
                         {%for item in data%}
                         <tr>
-                            <td>{{item[0]}}</td>
-                            <td>{{item[1]}}</td>
-                            <td>{{item[2]}}</td>
-                            <td>{{item[3]}}</td>
-                            <td>{{item[4]}}</td>
-                            <td>{{item[5]}}</td>
-                            <td><a href="{{url_for('peminjaman.update_peminjaman', id_peminjaman=item[0])}}">
+                            <td>{{item.id_peminjaman}}</td>
+                            <td>{{item.tgl_pinjam}}</td>
+                            <td>{{item.tgl_kembali}}</td>
+                            <td>{{item.id_buku}}</td>
+                            <td>{{item.id_anggota}}</td>
+                            <td>{{item.id_petugas}}</td>
+                            <td><a href="{{url_for('peminjaman.update_peminjaman', id_peminjaman=item.id_peminjaman)}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('peminjaman.delete_peminjaman', id_peminjaman=item[0])}}">
+                                <a href="{{url_for('peminjaman.delete_peminjaman', id_peminjaman=item.id_peminjaman)}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>

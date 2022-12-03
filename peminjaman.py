@@ -2,23 +2,19 @@ from flask import (Flask, render_template, request,
                    redirect, url_for, Blueprint)
 
 from database import getMysqlConnection
-
+import urllib.request
+import json
 peminjaman = Blueprint('peminjaman', __name__)
 
 
 @peminjaman.route('/peminjaman')
 def show_peminjaman():
-    db = getMysqlConnection()
-    try:
-        sqlstr = "SELECT * from peminjaman"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        output_json = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-    finally:
-        db.close()
-    return render_template('peminjaman.html', data=output_json)
+    url = f"http://127.0.0.1:8000/perpustakaan/api/show_peminjaman/"
+
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+    return render_template('peminjaman.html', data=dict['results'])
 
 
 @peminjaman.route('/tambah_peminjaman/', methods=['GET', 'POST'])

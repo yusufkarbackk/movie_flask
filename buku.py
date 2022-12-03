@@ -14,7 +14,7 @@ def show_buku():
     data = response.read()
     dict = json.loads(data)
 
-    print(dict) 
+    print(dict)
     return render_template('buku.html', data=dict['results'])
 
 
@@ -69,32 +69,14 @@ def tambah_buku():
 
 @buku.route('/update_buku/<int:kode_buku>/', methods=['GET', 'POST'])
 def update_buku(kode_buku):
-    db = getMysqlConnection()
-    try:
-        sqlstr = f"SELECT * from buku where kode_buku={kode_buku}"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        old_data = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-    try:
-        sqlstr = f"SELECT * from genre"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        genres = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
+    url = f"http://127.0.0.1:8000/perpustakaan/api/update_buku/{kode_buku}/"
 
-    try:
-        sqlstr = f"SELECT id_genre from relasi_buku_genre where kode_buku={kode_buku}"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        genre_relation = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-    joined_genre_relation = []  # [(1,), (2,)]
-    for i in genre_relation:
-        joined_genre_relation.append(i[0])
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+
+    buku = dict['results']
+
     if request.method == 'POST':
         kd_buku = request.form['kd_buku']
         judul = request.form['judul_buku']
@@ -104,54 +86,54 @@ def update_buku(kode_buku):
         stok = request.form['stok']
         genre = request.form.getlist('genre')
 
-        if len(kd_buku) == 0:
-            kd_buku = old_data[0][1]
-        if len(judul) == 0:
-            judul = old_data[0][2]
-        if len(penulis) == 0:
-            penulis = old_data[0][3]
-        if len(penerbit) == 0:
-            penerbit = old_data[0][4]
-        if len(tahun_terbit) == 0:
-            tahun_terbit = old_data[0][5]
-        if len(stok) == 0:
-            stok = old_data[0][6]
-        if len(genre) == 0:
-            genre = joined_genre_relation
+        # if len(kd_buku) == 0:
+        #     kd_buku = old_data[0][1]
+        # if len(judul) == 0:
+        #     judul = old_data[0][2]
+        # if len(penulis) == 0:
+        #     penulis = old_data[0][3]
+        # if len(penerbit) == 0:
+        #     penerbit = old_data[0][4]
+        # if len(tahun_terbit) == 0:
+        #     tahun_terbit = old_data[0][5]
+        # if len(stok) == 0:
+        #     stok = old_data[0][6]
+        # if len(genre) == 0:
+        #     genre = joined_genre_relation
 
-        try:
-            cur = db.cursor()
-            sqlstr = f"update buku set kode_buku = {kd_buku}, judul_buku='{judul}', penulis_buku='{penulis}', penerbit_buku='{penerbit}', tahun_penerbit='{tahun_terbit}', stok='{stok}' where kode_buku={kode_buku}"
-            cur.execute(sqlstr)
-            db.commit()
-            print('sukses')
-            cur.close()
-        except Exception as e:
-            print("Error in SQL:\n", e)
+        # try:
+        #     cur = db.cursor()
+        #     sqlstr = f"update buku set kode_buku = {kd_buku}, judul_buku='{judul}', penulis_buku='{penulis}', penerbit_buku='{penerbit}', tahun_penerbit='{tahun_terbit}', stok='{stok}' where kode_buku={kode_buku}"
+        #     cur.execute(sqlstr)
+        #     db.commit()
+        #     print('sukses')
+        #     cur.close()
+        # except Exception as e:
+        #     print("Error in SQL:\n", e)
 
-        try:
-            cur = db.cursor()
-            sqlstr = f"delete from relasi_buku_genre where kode_buku = {kode_buku}"
-            cur.execute(sqlstr)
-            db.commit()
-            print('sukses')
-            cur.close()
-        except Exception as e:
-            print("Error in SQL:\n", e)
-        for i in genre:
-            try:
-                cur = db.cursor()
-                sqlstr = f"INSERT INTO relasi_buku_genre (kode_buku, id_genre) VALUES({kode_buku}, {i})"
-                cur.execute(sqlstr)
-                db.commit()
-                print('sukses')
-                cur.close()
-            except Exception as e:
-                print("Error in SQL:\n", e)
+        # try:
+        #     cur = db.cursor()
+        #     sqlstr = f"delete from relasi_buku_genre where kode_buku = {kode_buku}"
+        #     cur.execute(sqlstr)
+        #     db.commit()
+        #     print('sukses')
+        #     cur.close()
+        # except Exception as e:
+        #     print("Error in SQL:\n", e)
+        # for i in genre:
+        #     try:
+        #         cur = db.cursor()
+        #         sqlstr = f"INSERT INTO relasi_buku_genre (kode_buku, id_genre) VALUES({kode_buku}, {i})"
+        #         cur.execute(sqlstr)
+        #         db.commit()
+        #         print('sukses')
+        #         cur.close()
+        #     except Exception as e:
+        #         print("Error in SQL:\n", e)
 
-        db.close()
-        return redirect(url_for('buku.show_buku'))
-    return render_template('update_form_buku.html', data=old_data, genres=genres, genre_relations=joined_genre_relation)
+        # db.close()
+        # return redirect(url_for('buku.show_buku'))
+    return render_template('update_form_buku.html', data=buku, genres=genres, genre_relations=joined_genre_relation)
 
 
 @buku.route('/delete_buku/<int:kode_buku>', methods=['GET', 'POST'])

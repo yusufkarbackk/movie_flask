@@ -38,17 +38,18 @@ def hello():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == 'POST':
-        keyword = request.form['search_movie']
-        return redirect(url_for('search_movie', keyword=f"{keyword}"))
-    else:
-        url = f"https://api.themoviedb.org/3/movie/popular?api_key={key}&language=en-US&page=1"
+    # if request.method == 'POST':
+    #     keyword = request.form['search_movie']
+    #     return redirect(url_for('search_movie', keyword=f"{keyword}"))
+    # else:
+    #     url = f"https://api.themoviedb.org/3/movie/popular?api_key={key}&language=en-US&page=1"
 
-        response = urllib.request.urlopen(url)
-        data = response.read()
-        dict = json.loads(data)
+    #     response = urllib.request.urlopen(url)
+    #     data = response.read()
+    #     dict = json.loads(data)
 
-        return render_template('index.html', movies=dict['results'])
+    #     return render_template('index.html', movies=dict['results'])
+    return redirect(url_for('dashboard'))
 
 
 @app.route('/search_movie/<keyword>')

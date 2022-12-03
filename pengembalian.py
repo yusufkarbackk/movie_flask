@@ -1,6 +1,7 @@
 from flask import (render_template, request,
                    redirect, url_for, Blueprint)
-
+import urllib.request
+import json
 from database import getMysqlConnection
 
 pengembalian = Blueprint('pengembalian', __name__)
@@ -8,17 +9,12 @@ pengembalian = Blueprint('pengembalian', __name__)
 
 @pengembalian.route('/pengembalian')
 def show_pengembalian():
-    db = getMysqlConnection()
-    try:
-        sqlstr = "SELECT * from pengembalian"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        output_json = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-    finally:
-        db.close()
-    return render_template('pengembalian.html', data=output_json)
+    url = f"http://127.0.0.1:8000/perpustakaan/api/show_pengembalian/"
+
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+    return render_template('pengembalian.html', data=dict['results'])
 
 
 @pengembalian.route('/tambah_pengembalian/', methods=['GET', 'POST'])

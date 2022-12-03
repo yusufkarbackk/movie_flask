@@ -32,17 +32,17 @@
                     <tbody>
                         {%for item in data%}
                         <tr>
-                            <td>{{item[0]}}</td>
-                            <td>{{item[1]}}</td>
-                            <td>{{item[2]}}</td>
-                            <td>{{item[3]}}</td>
-                            <td>{{item[4]}}</td>
-                            <td>{{item[5]}}</td>
-                            <td><a href="{{url_for('pengembalian.update_pengembalian', id_pengembalian=item[0])}}">
+                            <td>{{item.id_pengembalian}}</td>
+                            <td>{{item.tgl_pengembalian}}</td>
+                            <td>{{item.denda}}</td>
+                            <td>{{item.id_buku}}</td>
+                            <td>{{item.id_anggota}}</td>
+                            <td>{{item.id_petugas}}</td>
+                            <td><a href="{{url_for('pengembalian.update_pengembalian', id_pengembalian=item.id_pengembalian)}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('pengembalian.delete_pengembalian', id_pengembalian=item[0])}}">
+                                <a href="{{url_for('pengembalian.delete_pengembalian', id_pengembalian=item.id_pengembalian)}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>
