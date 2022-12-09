@@ -3,13 +3,13 @@ from flask import (render_template, request,
 import urllib.request
 import json
 from database import getMysqlConnection
-
+from url import BASE_URL
 pengembalian = Blueprint('pengembalian', __name__)
 
 
 @pengembalian.route('/pengembalian')
 def show_pengembalian():
-    url = f"http://127.0.0.1:8000/perpustakaan/api/show_pengembalian/"
+    url = f"https://{BASE_URL}-139-192-155-189.ap.ngrok.io/perpustakaan/api/pengembalian/"
 
     response = urllib.request.urlopen(url)
     data = response.read()

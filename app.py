@@ -10,7 +10,7 @@ from peminjaman import peminjaman
 from pengembalian import pengembalian
 import json
 import urllib.request
-
+from url import BASE_URL
 app = Flask(__name__)
 
 app.jinja_env.add_extension('jinja2.ext.loopcontrols')
@@ -38,18 +38,17 @@ def hello():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # if request.method == 'POST':
-    #     keyword = request.form['search_movie']
-    #     return redirect(url_for('search_movie', keyword=f"{keyword}"))
-    # else:
-    #     url = f"https://api.themoviedb.org/3/movie/popular?api_key={key}&language=en-US&page=1"
+    if request.method == 'POST':
+        keyword = request.form['search_movie']
+        return redirect(url_for('search_movie', keyword=f"{keyword}"))
+    else:
+        url = f"https://api.themoviedb.org/3/movie/popular?api_key={key}&language=en-US&page=1"
 
-    #     response = urllib.request.urlopen(url)
-    #     data = response.read()
-    #     dict = json.loads(data)
+        response = urllib.request.urlopen(url)
+        data = response.read()
+        dict = json.loads(data)
 
-    #     return render_template('index.html', movies=dict['results'])
-    return redirect(url_for('dashboard'))
+        return render_template('index.html', movies=dict['results'])
 
 
 @app.route('/search_movie/<keyword>')
@@ -80,17 +79,12 @@ def dashboard():
 
 @app.route('/users')
 def users():
-    db = getMysqlConnection()
-    try:
-        sqlstr = "SELECT * from anggota"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        output_json = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-    finally:
-        db.close()
-    return render_template('users.html', data=output_json)
+    url = f"https://{BASE_URL}-139-192-155-189.ap.ngrok.io/perpustakaan/api/anggota/"
+
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    dict = json.loads(data)
+    return render_template('users.html', data=dict['results'])
 
 
 @app.route('/update_user/<int:user_id>/', methods=['GET', 'POST'])

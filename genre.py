@@ -1,14 +1,16 @@
-from flask import (Flask, render_template, request,
+from flask import (render_template, request,
                    redirect, url_for, Blueprint)
 
 from database import getMysqlConnection
 import urllib.request
 import json
+import requests
+from url import BASE_URL
 genre = Blueprint('genre', __name__)
 
 @genre.route('/genre')
 def show_genre():
-    url = f"http://127.0.0.1:8000/perpustakaan/api/show_genre/"
+    url = f"https://{BASE_URL}-139-192-155-189.ap.ngrok.io/perpustakaan/api/genre/"
 
     response = urllib.request.urlopen(url)
     data = response.read()
@@ -19,33 +21,16 @@ def show_genre():
 
 @genre.route('/tambah_genre/', methods=['GET', 'POST'])
 def tambah_genre():
-    db = getMysqlConnection()
-
-    try:
-        sqlstr = "SELECT * from genre"
-        cur = db.cursor()
-        cur.execute(sqlstr)
-        genre = cur.fetchall()
-    except Exception as e:
-        print("Error in SQL:\n", e)
-
     if request.method == 'POST':
         nama_genre = request.form['genre']
-
-        try:
-            cur = db.cursor()
-            sqlstr = f"INSERT INTO genre (genre) VALUES('{nama_genre}')"
-            cur.execute(sqlstr)
-            db.commit()
-            cur.close()
-            print('sukses')
-            #output_json = cur.fetchall()
-        except Exception as e:
-            print("Error in SQL:\n", e)
-        finally:
-            db.close()
+        data = request.form.to_dict()
+        url = f"http://127.0.0.1:8000/perpustakaan/api/genre/"
+        requests.post(url, json=data)
+        print(dict)
+        print(request.form.to_dict())
+        
         return redirect(url_for('genre.show_genre'))
-    return render_template('form_genre.html', genre=genre)
+    return render_template('form_genre.html')
 
 
 @genre.route('/update_genre/<int:id_genre>/', methods=['GET', 'POST'])

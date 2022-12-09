@@ -4,12 +4,13 @@ from flask import (Flask, render_template, request,
 from database import getMysqlConnection
 import urllib.request
 import json
+from url import BASE_URL
 rak = Blueprint('rak', __name__)
 
 
 @rak.route('/rak')
 def show_rak():
-    url = f"http://127.0.0.1:8000/perpustakaan/api/show_rak/"
+    url = f"https://{BASE_URL}-139-192-155-189.ap.ngrok.io/perpustakaan/api/rak/"
 
     response = urllib.request.urlopen(url)
     data = response.read()

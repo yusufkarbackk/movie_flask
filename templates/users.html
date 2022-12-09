@@ -29,19 +29,19 @@
                     <tbody>
                         {%for item in data%}
                         <tr>
-                            <td>{{item[0]}}</td>
-                            <td>{{item[1]}}</td>
-                            <td>{{item[2]}}</td>
-                            <td>{{item[3]}}</td>
-                            <td>{{item[4]}}</td>
-                            <td>{{item[5]}}</td>
-                            <td>{{item[6]}}</td>
-                            <td>{{item[7]}}</td>
-                            <td><a href="{{url_for('user_update_form', user_id=item[0])}}">
+                            <td>{{item.id_anggota}}</td>
+                            <td>{{item.kode_anggota}}</td>
+                            <td>{{item.nama_anggota}}</td>
+                            <td>{{item.password}}</td>
+                            <td>{{item.jk_anggota}}</td>
+                            <td>{{item.jurusan_anggota}}</td>
+                            <td>{{item.no_telepon_anggota}}</td>
+                            <td>{{item.alamat_anggota}}</td>
+                            <td><a href="{{url_for('user_update_form', user_id=item.id_anggota)}}">
                                     <button class="btn-info">update</button>
                                 </a></td>
                             <td>
-                                <a href="{{url_for('deleteUser', user_id=item[0])}}">
+                                <a href="{{url_for('deleteUser', user_id=item.id_anggota)}}">
                                     <button class="btn-danger">delete</button>
                                 </a>
                             </td>

@@ -14,60 +14,60 @@
 
 <body>
     <div class="container mt-5">
-        <form method="post" action="{{url_for('buku.update_buku', kode_buku=data[0][1])}}">
+        <form method="post" action="{{url_for('buku.update_buku', kode_buku=data.id_buku)}}">
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Kode Buku</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" id="inputEmail3" value="{{data[0][1]}}" name="kd_buku">
+                    <input type="number" class="form-control" id="inputEmail3" value="{{data.kode_buku}}" name="kd_buku">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Judul Buku</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" value="{{data[0][2]}}" name="judul_buku">
+                    <input type="text" class="form-control" id="inputEmail3" value="{{data.judul_buku}}" name="judul_buku">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Penulis Buku</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" value="{{data[0][3]}}" name="penulis_buku">
+                    <input type="text" class="form-control" id="inputEmail3" value="{{data.penulis}}" name="penulis_buku">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">penerbit Buku</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" value="{{data[0][4]}}"
+                    <input type="text" class="form-control" id="inputEmail3" value="{{data.penerbit}}"
                         name="penerbit_buku">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">tahun penerbit</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" value="{{data[0][5]}}"
+                    <input type="text" class="form-control" id="inputEmail3" value="{{data.tahun_terbit}}"
                         name="tahun_penerbit">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Stok</label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control" id="inputEmail3" value="{{data[0][6]}}" name="stok">
+                    <input type="number" class="form-control" id="inputEmail3" value="{{data.stok}}" name="stok">
                 </div>
             </div>
 
             {%for genre in genres%}
-            {%if genre[0] in genre_relations%}
+            {%if genre.id_genre in genre_relations%}
             <div class="form-check">
-                <input class="form-check-input" checked name="genre" type="checkbox" value="{{genre[0]}}"
+                <input class="form-check-input" checked name="genre" type="checkbox" value="{{genre.id_genre}}"
                     id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
-                    {{genre[1]}}
+                    {{genre.genre}}
                 </label>
             </div>
             {%else%}
             <div class="form-check">
-                <input class="form-check-input" name="genre" type="checkbox" value="{{genre[0]}}" id="flexCheckDefault">
+                <input class="form-check-input" name="genre" type="checkbox" value="{{genre.id_genre}}" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
-                    {{genre[1]}}
+                    {{genre.genre}}
                 </label>
             </div>
             {%endif%}

@@ -3,12 +3,13 @@ from flask import (render_template, request,
 from database import getMysqlConnection
 import urllib.request
 import json
+from url import BASE_URL
 buku = Blueprint('buku', __name__)
 
 
 @buku.route('/buku')
 def show_buku():
-    url = f"http://127.0.0.1:8000/perpustakaan/api/show_buku/"
+    url = f"https://{BASE_URL}-139-192-155-189.ap.ngrok.io/perpustakaan/api/show_buku/"
 
     response = urllib.request.urlopen(url)
     data = response.read()
@@ -76,6 +77,7 @@ def update_buku(kode_buku):
     dict = json.loads(data)
 
     buku = dict['results']
+    print(buku['genre'])
 
     if request.method == 'POST':
         kd_buku = request.form['kd_buku']
@@ -133,7 +135,7 @@ def update_buku(kode_buku):
 
         # db.close()
         # return redirect(url_for('buku.show_buku'))
-    return render_template('update_form_buku.html', data=buku, genres=genres, genre_relations=joined_genre_relation)
+    return render_template('update_form_buku.html', data=buku['buku'], genres=buku['genre'], genre_relations=buku['relasi'])
 
 
 @buku.route('/delete_buku/<int:kode_buku>', methods=['GET', 'POST'])
